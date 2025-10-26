@@ -21,46 +21,54 @@ class UsersInput:
             except ValueError:
                 print('Not valid number')
                 continue
+
 class Operators(UsersInput):
     def choose_operator(self):
-        while True:
-            operator = input('Choose operators ( +,-,x,/ ): ')
-            if operator == '+':
-                total = self.num1 + self.num2
-                print(f'Total: {total}')
-                print()
-                self.retry()
-                self.user_input()
-            elif operator not in (' +,-,x,/ '):
-                print('wrong operator')
-                continue
+        operator = input('Choose operators ( +,-,x,/ ): ')
+        if operator == '+':
+            self.add()
+            self.retry()
+        elif operator == '-':
+            self.minus()
+            self.retry()
+        elif operator == '*':
+            self.multiply()
+            self.retry()
+        elif operator == '/':
+            self.divide()
+            self.retry()
+        else:
+            print('wrong operator')
+            self.choose_operator()
     def add(self):
-        pass
+            total = self.num1 + self.num2
+            print(f'Total: {total}')
+            print()
     def minus(self):
-        pass
+            total = self.num1 - self.num2
+            print(f'Total: {total}')
+            print()
     def multiply(self):
-        pass
+            total = self.num1 * self.num2
+            print(f'Total: {total}')
+            print()
     def divide(self):
-        pass
+        try:
+            total = self.num1 / self.num2
+            print(f'Total: {total}')
+            print()
+        except ZeroDivisionError:
+            print(f'Invalid,{self.num1} Cannot divide by 0')
     def retry(self):
-        while True:
-            if input('Calculate again?y or any key to quit: ') == 'y'.lower().strip():
-                break
+            again = input('Calculate again?y or any key to quit: ').lower().strip()
+            if again == 'y':
+                self.user_input()
+                self.choose_operator()
             else:
                 print('Thank you, Goodbye 👋')
-                break
+                return
 
 
-user = UsersInput(2,3)
+user = Operators(0,0)
 user.user_input()
-op = Operators(2,3)
-op.choose_operator()
-
-'''
-functions
-loops
-conditionals
-oop( classes, inheritance )
-modules & packages ( import,virtualenv, pip, requirements.txt )
-
-'''
+user.choose_operator()
